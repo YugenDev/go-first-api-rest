@@ -13,13 +13,22 @@ type Album struct {
 	Year   int    `json:"year"`
 }
 
+var albums = []Album{
+	{ID: "1", Title: "Laterlus", Artist: "Tool", Year: 2001},
+	{ID: "2", Title: "Desire, I Want To Turn Into You", Artist: "Caroline Polachek", Year: 2023},
+	{ID: "3", Title: "Angel Dust", Artist: "Faith No More", Year: 1992},
+	{ID: "4", Title: "Slipknot", Artist: "Slipknot", Year: 1999},
+}
+
+func getAlbums(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, albums)
+}
+
 func main() {
 	r := gin.Default()
 
-	r.GET("/hello", func(ctx *gin.Context) {
-		ctx.JSON(http.StatusOK, gin.H{
-			"message": "fokiu",
-		})
+	r.GET("/albums", func(ctx *gin.Context) {
+		getAlbums(ctx)
 	})
 
 	r.Run()
